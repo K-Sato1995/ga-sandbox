@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Get git short hash
         id: get_git_short_hash
-        run: echo "GIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        run: echo "GIT_HASH=testteste" >> $GITHUB_OUTPUT
 
       - name: Set branch
         id: set_release_target_branch
