@@ -1,34 +1,11 @@
-name: Sandbox
+name: Labeler
+on: [pull_request]
 
-on:
-  push:
-    branches:
-      - main
-      - develop
 jobs:
-  publish:
+  label:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      deployments: write
-
-    name: Run Steps
     steps:
-      - name: Get git short hash
-        id: get_git_short_hash
-        run: echo "GIT_HASH=testteste" >> $GITHUB_OUTPUT
-
-      - name: Set branch
-        id: set_release_target_branch
-        run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "RELEASE_TARGET_BRANCH=main" >> $GITHUB_OUTPUT
-          else
-            echo "RELEASE_TARGET_BRANCH=develop" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Print output values
-        run: |
-          echo "Git Short Hash: ${{ steps.get_git_short_hash.outputs.GIT_HASH }}"
-          echo "Release Target Branch: ${{ steps.set_release_target_branch.outputs.RELEASE_TARGET_BRANCH }}"
+      - uses: actions/labeler@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
